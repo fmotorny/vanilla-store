@@ -1,4 +1,17 @@
 import BaseComponent from './components/base-component.js';
+import connectToStore from "./core/store/connect";
+
+
+const navigationConfig = [
+  {
+    url: '/',
+    html: `<i class="bi bi-shop"></i><span>Items</span>`,
+    attributes: {
+      class: 'link-unstyled'
+    }
+  }
+];
+
 
 
 class App extends BaseComponent {
@@ -27,6 +40,22 @@ class App extends BaseComponent {
     </div>`;
   }
 
+
+  initializeRouter() {
+    this.router
+      .addRoute(/^$/, 'main')
+      .addRoute(/404\/?$/, 'error404')
+      .listen();
+  }
+
 }
+
+
+const ConnectedApp = connectToStore(App);
+const app = new ConnectedApp();
+
+document.body.append(app.element);
+
+app.initializeRouter();
 
 
