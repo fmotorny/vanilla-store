@@ -16,7 +16,9 @@ class OnlineStorePage extends BaseComponent {
 
     this.store = store;
     this.observer = observer;
-    
+
+    this.renderComponents();
+
   }
 
   async loadData() {
@@ -44,6 +46,15 @@ class OnlineStorePage extends BaseComponent {
     }
 
     this.subscriptions = [];
+  }
+
+  renderComponents () {
+    for (const componentName of Object.keys(this.components)) {
+      const root = this.subElements[componentName];
+      const { element } = this.components[componentName];
+
+      root.append(element);
+    }
   }
 }
 
