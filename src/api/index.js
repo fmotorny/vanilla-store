@@ -1,23 +1,23 @@
 const BACKEND_URL = `${process.env.BACKEND_URL}api/`;
 
 export default class RequestBuilder {
-  constructor (url = '') {
+  constructor(url = "") {
     this.url = new URL(url, BACKEND_URL);
   }
 
-  addPagination (start, end) {
-    this.url.searchParams.set('pagination[page]', start);
-    this.url.searchParams.set('pagination[pageSize]', end);
-    this.url.searchParams.set('populate', '*');
+  addPagination(start, end) {
+    this.url.searchParams.set("pagination[page]", start);
+    this.url.searchParams.set("pagination[pageSize]", end);
+    this.url.searchParams.set("populate", "*");
 
     return this;
   }
 
-  toString () {
+  toString() {
     return this.url.toString();
   }
 
-  resetSearchParams () {
+  resetSearchParams() {
     const keys = [...this.url.searchParams.keys()];
 
     for (const key of keys) {

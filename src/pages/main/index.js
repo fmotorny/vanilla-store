@@ -2,13 +2,18 @@ import BaseComponent from "../../components/base-component";
 
 import './main.css';
 import connectToStore from "../../core/store/connect";
+import connectToObserver from "../../core/observer/connect";
 
 
 class OnlineStorePage extends BaseComponent {
   subscriptions = [];
   subElements = [];
   components = {};
-  pageSize = 10;
+  page = 1;
+  pageCount = null;
+  // Кол-во загружаемых элементов за 1 раз
+  pageSize = 9;
+  total = null;
   products = [];
 
   constructor(match, store, observer) {
@@ -58,4 +63,4 @@ class OnlineStorePage extends BaseComponent {
   }
 }
 
-export default connectToStore();
+export default connectToStore(connectToObserver(OnlineStorePage));
