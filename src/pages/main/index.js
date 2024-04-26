@@ -3,6 +3,8 @@ import BaseComponent from "../../components/base-component";
 import './main.css';
 import connectToStore from "../../core/store/connect";
 import connectToObserver from "../../core/observer/connect";
+import NotificationManager from "../../components/notification/notification-manager";
+import CardsList from "../../components/cards-list";
 
 
 class OnlineStorePage extends BaseComponent {
@@ -23,6 +25,7 @@ class OnlineStorePage extends BaseComponent {
     this.observer = observer;
 
     this.renderComponents();
+    this.initComponents();
 
   }
 
@@ -36,6 +39,35 @@ class OnlineStorePage extends BaseComponent {
 
       </div>
     `;
+  }
+
+
+  initListComponent(mode = "") {
+    const currentMode = mode;
+
+    const modes = {
+      grid: () =>
+        new CardsList({
+          data: this.products,
+          CardComponent: null,
+        })
+    };
+
+    return null;
+  }
+
+  initComponents() {
+    const mode = this.getMode();
+    const list = this.initListComponent(mode);
+    const search = new Search();
+
+    // NOTE: destroy component manually
+    this.notificationManager = new NotificationManager({ stackLimit: 3 });
+
+    this.components = {
+      list,
+      search,
+    };
   }
 
 
