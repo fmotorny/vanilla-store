@@ -26,6 +26,7 @@ class OnlineStorePage extends BaseComponent {
 
     this.renderComponents();
     this.initComponents();
+    this.initEventListeners()
 
   }
 
@@ -70,7 +71,53 @@ class OnlineStorePage extends BaseComponent {
     };
   }
 
+  registerObserverEvent(type, callback) {
+    const handler = this.observer.subscribe(type, callback);
 
+    this.subscriptions.push(handler);
+  }
+
+  initEventListeners() {
+    this.registerObserverEvent("load-data", () => {
+      if (this.products.length >= this.total) {
+        return;
+      }
+
+      this.url.addPagination(this.page + 1, this.pageSize);
+
+      this.add();
+    });
+
+    
+
+
+
+    // TODO: make refactoring
+    this.subElements.gridBtn.addEventListener("pointerdown", () => {
+      this.subElements.listBtn.classList.remove("active");
+      this.subElements.gridBtn.classList.add("active");
+
+      this.components.list.remove();
+      this.setMode("grid");
+      this.components.list = this.initListComponent("grid");
+
+      this.subElements.list.innerHTML = "";
+      this.subElements.list.append(this.components.list.element);
+    });
+
+    // TODO: make refactoring
+    this.subElements.listBtn.addEventListener("pointerdown", () => {
+      this.subElements.gridBtn.classList.remove("active");
+      this.subElements.listBtn.classList.add("active");
+
+      this.components.list.remove();
+      this.setMode("table");
+      this.components.list = this.initListComponent("table");
+
+      this.subElements.list.innerHTML = "";
+      this.subElements.list.append(this.components.list.element);
+    });
+  }
 
 
   destroy() {
