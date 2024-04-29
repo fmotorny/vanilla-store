@@ -5,6 +5,7 @@ import connectToStore from "../../core/store/connect";
 import connectToObserver from "../../core/observer/connect";
 import NotificationManager from "../../components/notification/notification-manager";
 import CardsList from "../../components/cards-list";
+import httpRequest from "../../core/request";
 
 
 class OnlineStorePage extends BaseComponent {
@@ -31,7 +32,7 @@ class OnlineStorePage extends BaseComponent {
   }
 
   async loadData() {
-    return;
+    return await httpRequest.get(this.url);
   }
 
   get template() {
@@ -40,6 +41,22 @@ class OnlineStorePage extends BaseComponent {
 
       </div>
     `;
+  }
+
+
+  async add() {
+    const res = await this.loadData();
+
+    const { page, pageCount, pageSize, total } = res.meta.pagination;
+
+    this.page = page;
+    this.pageCount = pageCount;
+    this.pageSize = pageSize;
+    this.total = total;
+
+    this.products.push(...res.data);
+
+    this.components.list.add(res.data);
   }
 
 
@@ -88,7 +105,7 @@ class OnlineStorePage extends BaseComponent {
       this.add();
     });
 
-    
+
 
 
 
