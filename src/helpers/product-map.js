@@ -1,5 +1,5 @@
 export const productMap = (product) => {
-  const baseImageUrl = "http://localhost:1337";
+  const baseImageUrl = "https://cryptotube.ru";
 
   const thumbUrl =
     product.product_image?.data?.attributes?.formats?.thumbnail.url;
