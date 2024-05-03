@@ -6,7 +6,7 @@ export default class SyncStorage {
   static #instance;
 
   // NOTE: Pattern: Singleton
-  constructor () {
+  constructor() {
     if (SyncStorage.#instance) {
       return SyncStorage.#instance;
     }
@@ -14,20 +14,22 @@ export default class SyncStorage {
     SyncStorage.#instance = this;
   }
 
-  // NOTE: Pattern. Factory method
-  create (storageType = '', prefix = '') {
+  // NOTE: Factory method
+  create(storageType = "", prefix = "") {
     const storages = {
       local: () => new LocalStorageService(prefix, window.localStorage),
       session: () => new LocalStorageService(prefix, window.sessionStorage),
       cookie: () => new CookieAdapter(),
-      memory: () => new MemoryAdapter()
+      memory: () => new MemoryAdapter(),
     };
 
     const getStorage = storages[storageType];
 
     if (getStorage === undefined) {
-      throw Error(`There is no storage "${storageType}", ` +
-        `please use next storage types: \n "${Object.keys(storages).join(', ')}"`);
+      throw Error(
+        `There is no storage "${storageType}", ` +
+          `please use next storage types: \n "${Object.keys(storages).join(", ")}"`,
+      );
     }
 
     return getStorage();

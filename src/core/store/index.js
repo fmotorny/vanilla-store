@@ -1,3 +1,4 @@
+// NOTE: Mediator
 export default class Store {
   static #instance;
 
@@ -12,7 +13,7 @@ export default class Store {
     }
 
     this.reducers = reducers;
-    this.state = {...initialState};
+    this.state = { ...initialState };
 
     Store.#instance = this;
   }
@@ -29,10 +30,10 @@ export default class Store {
     this.state[slice] = value;
   };
 
-  dispatch (action = {}) {
+  dispatch(action = {}) {
     const { type, payload } = action;
 
-    console.error('action', action);
+    console.log("action", action);
 
     for (const reducerName of Object.keys(this.reducers)) {
       const reducerMethod = this.reducers[reducerName][type];
@@ -40,13 +41,13 @@ export default class Store {
       if (reducerMethod) {
         const state = this.getState(reducerName);
 
-        console.error('current state', state);
+        console.log("current state", state);
 
         const nextValue = reducerMethod(state, payload);
 
         this.setState(reducerName, nextValue);
 
-        console.error('next state', this.getState());
+        console.log("next state", this.getState());
 
         const listeners = this.listeners[type];
 
@@ -61,7 +62,7 @@ export default class Store {
     }
   }
 
-  subscribe (eventName, listener) {
+  subscribe(eventName, listener) {
     if (this.listeners[eventName]) {
       this.listeners[eventName].set(listener, null);
     } else {
@@ -73,4 +74,3 @@ export default class Store {
     };
   }
 }
-

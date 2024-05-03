@@ -2,13 +2,11 @@
 export default class Proxy {
   proxyCache = new Map();
 
-  constructor({
-    maxSize = 10
-  } = {}) {
+  constructor({ maxSize = 10 } = {}) {
     this.maxSize = maxSize;
   }
 
-  set (key = '', value) {
+  set(key = "", value) {
     if (this.size() === this.maxSize) {
       const oldestKey = [...this.proxyCache.keys()].shift();
 
@@ -18,15 +16,15 @@ export default class Proxy {
     this.proxyCache.set(key, value);
   }
 
-  has (key) {
+  has(key) {
     return this.proxyCache.has(key);
   }
 
-  get (key) {
+  get(key) {
     return this.proxyCache.get(key);
   }
 
-  size () {
+  size() {
     return this.proxyCache.size;
   }
 }

@@ -1,17 +1,17 @@
 export default [
   {
-    id: 'images',
+    id: 'image',
     title: 'Image',
     sortable: false,
-    template: data => {
+    template: image => {
       return `
         <td class="col">
-          <img class="sortable-table-image" alt="product image" src="${data[0].url}">
+          <img class="sortable-table-image" alt="product image" src="${image}">
         </td>`;
     }
   },
   {
-    id: 'rating',
+    id: 'rate',
     title: 'rating',
     sortable: true,
     sortType: 'number'
@@ -29,14 +29,14 @@ export default [
     sortType: 'string'
   },
   {
-    id: 'description',
+    id: 'desc',
     title: 'Description',
     sortable: true,
     sortType: 'string',
-    template: description => {
+    template: desc => {
       return `
         <td class="col">
-          ${description.slice(0, 50) + '...'}
+          ${desc.slice(0, 50) + '...'}
         </td>`;
     }
   }

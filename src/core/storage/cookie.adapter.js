@@ -3,27 +3,27 @@ import {
   writeCookie,
   deleteCookie,
   deleteAllCookies,
-  readAllCookies
+  readAllCookies,
 } from "./cookie.lib.js";
 
 export default class CookieAdapter {
-  add (key, value) {
+  add(key, value) {
     return writeCookie(key, value);
   }
 
-  get (key) {
+  get(key) {
     return readCookie(key);
   }
 
-  remove (key) {
+  remove(key) {
     return deleteCookie(key);
   }
 
-  getAll () {
+  getAll() {
     return readAllCookies();
   }
 
-  removeAll () {
+  removeAll() {
     deleteAllCookies();
   }
 }

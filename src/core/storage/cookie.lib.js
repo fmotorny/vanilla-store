@@ -1,6 +1,6 @@
-const daysToMilliseconds = duration => duration * 24 * 60 * 60 * 1000;
+const daysToMilliseconds = (duration) => duration * 24 * 60 * 60 * 1000;
 
-const getDurationTime = duration => {
+const getDurationTime = (duration) => {
   const date = new Date();
 
   date.setTime(date.getTime() + daysToMilliseconds(duration));
@@ -9,17 +9,17 @@ const getDurationTime = duration => {
 };
 
 export const writeCookie = (name, value, duration) => {
-  const expires = duration ? `; expires=${getDurationTime(duration)}` : '';
+  const expires = duration ? `; expires=${getDurationTime(duration)}` : "";
 
   document.cookie = `${name}=${value}${expires}; path=/`;
 };
 
 export const readCookie = (name) => {
-  const cookiesArr = document.cookie.split(';');
+  const cookiesArr = document.cookie.split(";");
 
   const cookie = cookiesArr
-    .map(item => {
-      return item.trim().split('=');
+    .map((item) => {
+      return item.trim().split("=");
     })
     .find(([cookieName]) => {
       return cookieName === name;
@@ -39,14 +39,14 @@ export const readAllCookies = () => {
   for (const cookie of cookies) {
     const [name, ...values] = cookie.split("=");
 
-    result[name] = values.join('');
+    result[name] = values.join("");
   }
 
   return result;
 };
 
 export const deleteCookie = (name) => {
-  writeCookie(name, '', -1);
+  writeCookie(name, "", -1);
 };
 
 export const deleteAllCookies = () => {

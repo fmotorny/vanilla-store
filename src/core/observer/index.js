@@ -1,4 +1,4 @@
-// Шаблон observer
+// NOTE: Observer
 export default class Observer {
   static #instance;
 
@@ -26,7 +26,7 @@ export default class Observer {
     }
   }
 
-  subscribe (eventName, callback) {
+  subscribe(eventName, callback) {
     if (this.callbacks[eventName]) {
       this.callbacks[eventName].set(callback, null);
     } else {

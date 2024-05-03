@@ -1,5 +1,5 @@
-import BaseComponent from '../base-component.js';
-import connectToObserver from '../../core/observer/connect.js';
+import BaseComponent from "../base-component.js";
+import connectToObserver from "../../core/observer/connect.js";
 
 class InfinityList extends BaseComponent {
   loading = false;
@@ -8,26 +8,23 @@ class InfinityList extends BaseComponent {
     const { bottom } = this.element.getBoundingClientRect();
     const threshold = 100;
 
-    if (bottom - threshold < document.documentElement.clientHeight && !this.loading) {
+    if (
+      bottom - threshold < document.documentElement.clientHeight &&
+      !this.loading
+    ) {
       this.start = this.end;
       this.end = this.start + this.step;
 
       this.loading = true;
 
-      this.dispatchEvent('load-data', {
+      this.dispatchEvent("load-data", {
         start: this.start,
-        end: this.end
+        end: this.end,
       });
     }
   };
 
-  constructor (
-    list = {},
-    {
-      step = 20,
-    } = {},
-    observer
-  ) {
+  constructor(list = {}, { step = 20 } = {}, observer) {
     super();
 
     this.list = list;
@@ -40,48 +37,48 @@ class InfinityList extends BaseComponent {
     this.initialize();
   }
 
-  // NOTE
-  initialize () {
+  // NOTE: Pattern. Facade
+  initialize() {
     this.render();
     this.initEventListeners();
   }
 
-  render () {
+  render() {
     super.render();
 
-    this.element.classList.add('infinity-container');
+    this.element.classList.add("infinity-container");
     this.element.append(this.list.element);
   }
 
-  add (data) {
+  add(data) {
     this.list.add(data);
     this.loading = false;
   }
 
-  update (data) {
+  update(data) {
     this.list.update(data);
     this.loading = false;
   }
 
-  resetPagination () {
+  resetPagination() {
     this.start = 1;
     this.end = this.start + this.step;
   }
 
-  dispatchEvent (type = '', payload) {
+  dispatchEvent(type = "", payload) {
     this.observer.dispatchEvent({
       type,
-      payload
+      payload,
     });
   }
 
-  initEventListeners () {
-    document.addEventListener('scroll', this.onWindowScroll, {
-      signal: this.abortController.signal
+  initEventListeners() {
+    document.addEventListener("scroll", this.onWindowScroll, {
+      signal: this.abortController.signal,
     });
   }
 
-  destroy () {
+  destroy() {
     super.destroy();
 
     this.list = null;

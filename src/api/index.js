@@ -5,6 +5,10 @@ export default class RequestBuilder {
     this.url = new URL(url, BACKEND_URL);
   }
 
+  toString() {
+    return this.url.toString();
+  }
+
   addPagination(start, end) {
     this.url.searchParams.set("pagination[page]", start);
     this.url.searchParams.set("pagination[pageSize]", end);
@@ -13,8 +17,16 @@ export default class RequestBuilder {
     return this;
   }
 
-  toString() {
-    return this.url.toString();
+  addSort(sort, order) {
+    this.url.searchParams.set("sort", `${sort}:${order}`);
+    return this;
+  }
+
+  addSearch(title_like) {
+    this.url.searchParams.set("filters[title][$contains]", title_like);
+    this.url.searchParams.set("populate", "*");
+
+    return this;
   }
 
   resetSearchParams() {

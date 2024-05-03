@@ -1,26 +1,27 @@
-// NOTE: Pattern Decorator
-const connectToStore = Component => class extends Component {
-  static name = `connected to store ${Component.name}`;
+// NOTE: Decorator
+const connectToStore = (Component) =>
+  class extends Component {
+    static name = `connected to store ${Component.name}`;
 
-  constructor(...props) {
-    const store = globalThis[Symbol.for('storeKey')];
+    constructor(...props) {
+      const store = globalThis[Symbol.for("storeKey")];
 
-    props.push(store);
+      props.push(store);
 
-    super(...props);
-  }
+      super(...props);
+    }
 
-  destroy () {
-    if (this.subscriptions?.length) {
-      for (const unsubscribe of this.subscriptions) {
-        unsubscribe();
+    destroy() {
+      if (this.subscriptions?.length) {
+        for (const unsubscribe of this.subscriptions) {
+          unsubscribe();
+        }
+      }
+
+      if (super.destroy) {
+        super.destroy();
       }
     }
-
-    if (super.destroy) {
-      super.destroy();
-    }
-  }
-};
+  };
 
 export default connectToStore;

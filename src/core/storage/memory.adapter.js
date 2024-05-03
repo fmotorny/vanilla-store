@@ -1,23 +1,23 @@
 export default class MemoryAdapter {
   #storage = new Map();
 
-  add (key, value) {
+  add(key, value) {
     this.#storage.set(key, value);
   }
 
-  get (key) {
+  get(key) {
     return this.#storage.get(key);
   }
 
-  remove (key) {
+  remove(key) {
     return this.#storage.delete(key);
   }
 
-  getAll () {
+  getAll() {
     return Object.fromEntries(this.#storage.entries());
   }
 
-  removeAll () {
+  removeAll() {
     for (const key of this.#storage.keys()) {
       this.#storage.delete(key);
     }
