@@ -1,7 +1,7 @@
-import Router from "./index.js";
+import Router from './index.js';
 
 export default class Link {
-  static activeClassName = "active";
+  static activeClassName = 'active';
 
   onPopState = () => {
     if (`/${this.router.strippedPath}` === this.url) {
@@ -11,7 +11,11 @@ export default class Link {
     }
   };
 
-  constructor({ url = "", html = "", attributes = {} } = {}) {
+  constructor({
+    url = '',
+    html = '',
+    attributes = {}
+  } = {}) {
     this.url = url;
     this.html = html;
     this.attributes = attributes;
@@ -21,10 +25,10 @@ export default class Link {
     this.initEventListens();
   }
 
-  render() {
-    const element = document.createElement("a");
+  render () {
+    const element = document.createElement('a');
 
-    element.setAttribute("href", this.url);
+    element.setAttribute('href', this.url);
     element.innerHTML = this.html;
 
     for (const [prop, value] of Object.entries(this.attributes)) {
@@ -34,27 +38,27 @@ export default class Link {
     this.element = element;
   }
 
-  initEventListens() {
-    this.element.addEventListener("click", (event) => {
+  initEventListens () {
+    this.element.addEventListener('click', event => {
       event.preventDefault();
 
-      const href = event.currentTarget.getAttribute("href");
+      const href = event.currentTarget.getAttribute('href');
 
       this.router.navigate(href);
     });
 
-    window.addEventListener("popstate", this.onPopState);
+    window.addEventListener('popstate', this.onPopState);
   }
 
-  remove() {
+  remove () {
     if (this.element) {
       this.element.remove();
     }
   }
 
-  destroy() {
+  destroy () {
     this.remove();
     this.element = null;
-    window.removeEventListener("popstate", this.onPopState);
+    window.removeEventListener('popstate', this.onPopState);
   }
 }
