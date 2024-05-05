@@ -1,6 +1,5 @@
 import { getSubElements } from "../../core/dom/index.js";
 import connectToStore from "../../core/store/connect.js";
-import Cart from "../../components/cart";
 import connectToObserver from "../../core/observer/connect";
 import { productMap } from "../../helpers/product-map";
 
