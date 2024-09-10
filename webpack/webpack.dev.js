@@ -22,7 +22,7 @@ module.exports = merge(common, {
     client: {
       logging: 'log',
     },
-    disableHostCheck: true,
+    allowedHosts: "all"
   }
 });
 
