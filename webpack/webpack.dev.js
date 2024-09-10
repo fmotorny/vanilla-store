@@ -10,7 +10,6 @@ module.exports = merge(common, {
     host: "127.0.0.1",
     compress: true,
     inline: false,
-    hot: false,
     https: false,
     historyApiFallback: true,
     static: {
