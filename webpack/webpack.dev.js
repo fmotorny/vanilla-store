@@ -11,6 +11,7 @@ module.exports = merge(common, {
     compress: true,
     https: false,
     historyApiFallback: true,
+    webSocketServer: false,
     static: {
       directory: path.join(__dirname, '../dist'),
     },
