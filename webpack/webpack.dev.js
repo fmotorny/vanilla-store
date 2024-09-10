@@ -11,7 +11,6 @@ module.exports = merge(common, {
     compress: true,
     inline: false,
     webSocketServer: false,
-    hot: false,
     https: false,
     historyApiFallback: true,
     static: {
