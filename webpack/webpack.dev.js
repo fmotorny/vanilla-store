@@ -9,6 +9,7 @@ module.exports = merge(common, {
     port: 3003,
     host: "127.0.0.1",
     compress: true,
+    inline: false,
     https: false,
     historyApiFallback: true,
     static: {
